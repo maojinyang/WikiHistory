@@ -971,6 +971,7 @@ if __name__ == '__main__':
             text = extractor.clean_text(revision[1])
             clean_revisions.append((revision[0], text))
         if len(clean_revisions) == 1 and len(clean_revisions[0][1]) == 0:
+
             continue
         item['revisions'] = clean_revisions
         clean_history.write(json.dumps(item, ensure_ascii=False) + '\n')
