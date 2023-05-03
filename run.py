@@ -1,6 +1,23 @@
+import bz2
 import json
+import os
 import xml.dom.minidom as minidom
 from tqdm import tqdm
+
+
+def decode_open(filename, mode='rt', encoding='utf-8'):
+    """
+    Open a file, decode and decompress, depending on extension `gz`, or 'bz2`.
+    :param filename: the file to open.
+    """
+    ext = os.path.splitext(filename)[1]
+    if ext == '.gz':
+        import gzip
+        return gzip.open(filename, mode, encoding=encoding)
+    elif ext == '.bz2':
+        return bz2.open(filename, mode=mode, encoding=encoding)
+    else:
+        return open(filename, mode, encoding=encoding)
 
 
 output = open('OUTPUT/history.json', 'w', encoding='utf-8')
@@ -35,6 +52,3 @@ for name in tqdm(names):
 
     json_item = {'id': id_text, 'title': title_text, 'revisions': revisions_list}
     output.write(json.dumps(json_item, ensure_ascii=False) + '\n')
-
-
-
