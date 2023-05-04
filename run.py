@@ -5,21 +5,6 @@ import xml.dom.minidom as minidom
 from tqdm import tqdm
 
 
-def decode_open(filename, mode='rt', encoding='utf-8'):
-    """
-    Open a file, decode and decompress, depending on extension `gz`, or 'bz2`.
-    :param filename: the file to open.
-    """
-    ext = os.path.splitext(filename)[1]
-    if ext == '.gz':
-        import gzip
-        return gzip.open(filename, mode, encoding=encoding)
-    elif ext == '.bz2':
-        return bz2.open(filename, mode=mode, encoding=encoding)
-    else:
-        return open(filename, mode, encoding=encoding)
-
-
 output = open('OUTPUT/history.json', 'w', encoding='utf-8')
 dom = minidom.parse('DATA/zhwiki-20230201-pages-meta-history6.xml-p8141535p8266476')
 root = dom.documentElement
